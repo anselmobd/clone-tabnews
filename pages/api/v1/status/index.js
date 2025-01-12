@@ -5,6 +5,7 @@ async function status(request, response) {
   const updatedAt = new Date().toISOString();
   response.status(200).json({
     update_at: updatedAt,
+    database: {},
   });
 }
 
