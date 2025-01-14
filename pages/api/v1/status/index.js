@@ -14,7 +14,7 @@ async function status(request, response) {
   );
 
   const openConnections = await database.getFirstRowColumn(
-    "SELECT count(*) FROM pg_stat_activity;",
+    "SELECT count(*) FROM pg_stat_activity WHERE datname = 'local_db';",
     "count",
   );
 
