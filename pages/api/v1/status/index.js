@@ -1,11 +1,24 @@
 import database from "/infra/database.js";
 
+async function getRows(sql) {
+  return (await database.query(sql)).rows;
+}
+
+async function getFirstRow(sql) {
+  return (await getRows(sql))[0];
+}
+
+async function getFirstRowColumn(sql, name) {
+  return (await getFirstRow(sql))[name];
+}
+
 async function status(request, response) {
   const updatedAt = new Date().toISOString();
 
-  const resultServerVersion = await database.query("SHOW server_version;");
-  console.log(resultServerVersion.rows);
-  const serverVersion = resultServerVersion.rows[0].server_version;
+  const serverVersion = await getFirstRowColumn(
+    "SHOW server_version;",
+    "server_version",
+  );
 
   const resultMaxConnections = await database.query("SHOW max_connections;");
   console.log(resultMaxConnections.rows);
