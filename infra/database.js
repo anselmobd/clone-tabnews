@@ -20,6 +20,21 @@ async function query(queryObject) {
   return result;
 }
 
+async function getRows(sql) {
+  return (await query(sql)).rows;
+}
+
+async function getFirstRow(sql) {
+  return (await getRows(sql))[0];
+}
+
+async function getFirstRowColumn(sql, name) {
+  return (await getFirstRow(sql))[name];
+}
+
 export default {
   query: query,
+  getRows: getRows,
+  getFirstRow: getFirstRow,
+  getFirstRowColumn: getFirstRowColumn,
 };

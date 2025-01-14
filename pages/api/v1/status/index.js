@@ -1,31 +1,19 @@
 import database from "/infra/database.js";
 
-async function getRows(sql) {
-  return (await database.query(sql)).rows;
-}
-
-async function getFirstRow(sql) {
-  return (await getRows(sql))[0];
-}
-
-async function getFirstRowColumn(sql, name) {
-  return (await getFirstRow(sql))[name];
-}
-
 async function status(request, response) {
   const updatedAt = new Date().toISOString();
 
-  const serverVersion = await getFirstRowColumn(
+  const serverVersion = await database.getFirstRowColumn(
     "SHOW server_version;",
     "server_version",
   );
 
-  const maxConnections = await getFirstRowColumn(
+  const maxConnections = await database.getFirstRowColumn(
     "SHOW max_connections;",
     "max_connections",
   );
 
-  const openConnections = await getFirstRowColumn(
+  const openConnections = await database.getFirstRowColumn(
     "SELECT count(*) FROM pg_stat_activity;",
     "count",
   );
