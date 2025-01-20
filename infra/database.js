@@ -1,6 +1,6 @@
 import { Client } from "pg";
 
-async function query(queryObject) {
+async function query({ sql, values }) {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -11,7 +11,10 @@ async function query(queryObject) {
   await client.connect();
   let result = null;
   try {
-    result = await client.query(queryObject);
+    result = await client.query({
+      text: sql,
+      values: values,
+    });
   } catch (err) {
     console.error(err);
   } finally {
@@ -20,16 +23,17 @@ async function query(queryObject) {
   return result;
 }
 
-async function getRows(sql) {
-  return (await query(sql)).rows;
+async function getRows({ sql, values }) {
+  const result = await query({ sql, values });
+  return result.rows;
 }
 
-async function getFirstRow(sql) {
-  return (await getRows(sql))[0];
+async function getFirstRow({ sql, values }) {
+  return (await getRows({ sql, values }))[0];
 }
 
-async function getFirstRowColumn(sql, name) {
-  return (await getFirstRow(sql))[name];
+async function getFirstRowColumn({ sql, values, name }) {
+  return (await getFirstRow({ sql, values }))[name];
 }
 
 export default {
