@@ -4,7 +4,7 @@ test("GET to /api/v1/status should return 200", async () => {
   expect(response.status).toBe(200);
 
   const responseBody = await response.json();
-  console.log("responseBody", responseBody);
+  // console.log("responseBody", responseBody);
 
   // test response structure
   expect(responseBody.update_at).toBeDefined();
@@ -21,7 +21,6 @@ test("GET to /api/v1/status should return 200", async () => {
 
   // test response content
   const parsedUpdatedAt = new Date(responseBody.update_at).toISOString();
-  console.log("parsedUpdatedAt", parsedUpdatedAt);
   expect(responseBody.update_at).toEqual(parsedUpdatedAt);
 
   expect(responseBody.dependencies.database.version).toBe("16.6");
