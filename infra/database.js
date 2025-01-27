@@ -58,12 +58,12 @@ async function getNewConnectedClient() {
 }
 
 export default {
-  rawQuery: rawQuery,
-  query: query,
-  getRows: getRows,
-  getFirstRow: getFirstRow,
-  getFirstRowColumn: getFirstRowColumn,
-  getNewConnectedClient: getNewConnectedClient,
+  rawQuery,
+  query,
+  getRows,
+  getFirstRow,
+  getFirstRowColumn,
+  getNewConnectedClient,
 };
 
 function getSslValues() {
