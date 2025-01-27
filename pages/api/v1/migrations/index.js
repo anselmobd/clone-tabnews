@@ -11,22 +11,22 @@ export default async function migrations(request, response) {
   };
 
   if (request.method === "GET") {
-    const migrations = await migrationRunner({
+    const pendingMigrations = await migrationRunner({
       ...defaultMigrationOptions, // Spreat / Espalha
       dryRun: true,
     });
-    return response.status(200).json(migrations);
+    return response.status(200).json(pendingMigrations);
   } else if (request.method === "POST") {
-    const migrations = await migrationRunner({
+    const migratedMigrations = await migrationRunner({
       ...defaultMigrationOptions, // Spreat / Espalha
       dryRun: false,
     });
 
-    if (migrations.length === 0) {
-      return response.status(200).json(migrations);
+    if (migratedMigrations.length === 0) {
+      return response.status(200).json(migratedMigrations);
     }
 
-    return response.status(201).json(migrations);
+    return response.status(201).json(migratedMigrations);
   } else {
     return response.status(405).json({ message: "Method not allowed" });
   }
