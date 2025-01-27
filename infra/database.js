@@ -58,12 +58,26 @@ async function getFirstRowColumn({ sql, values, name }) {
   return (await getFirstRow({ sql, values }))[name];
 }
 
+async function getNewConnectedClient() {
+  const client = new Client({
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    user: process.env.POSTGRES_USER,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: getSslValues(),
+  });
+  await client.connect();
+  return client;
+}
+
 export default {
   rawQuery: rawQuery,
   query: query,
   getRows: getRows,
   getFirstRow: getFirstRow,
   getFirstRowColumn: getFirstRowColumn,
+  getNewConnectedClient: getNewConnectedClient,
 };
 
 function getSslValues() {
