@@ -10,7 +10,7 @@ test("POST to /api/v1/migrations should return 200", async () => {
   const response = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "POST",
   });
-  expect(response.status).toBe(200);
+  expect(response.status).toBe(201); // Created
 
   const responseBody = await response.json();
 
@@ -20,7 +20,7 @@ test("POST to /api/v1/migrations should return 200", async () => {
   const responseGet = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "POST",
   });
-  expect(responseGet.status).toBe(200);
+  expect(responseGet.status).toBe(200); // OK
   const responseGetBody = await responseGet.json();
   expect(responseGetBody.length).toBe(0);
 });
