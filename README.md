@@ -1,5 +1,5 @@
 # clone-tabnews
 
-Implementação do tabnews.com.br para o curso.dev
+Repositório de estudo do curso.dev, reimplementando a tabnews.com.br.
 
-2024-12-24 Mensagem para Miriam
+Base para o projeto TutorialDev
