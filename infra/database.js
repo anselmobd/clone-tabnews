@@ -72,5 +72,5 @@ function getSslValues() {
       ca: process.env.POSTGRES_CA,
     };
   }
-  return process.env.NODE_ENV === "production";
+  return process.env.NODE_ENV !== "development";
 }
