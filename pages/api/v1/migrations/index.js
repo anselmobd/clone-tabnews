@@ -3,6 +3,10 @@ import migrationRunner from "node-pg-migrate";
 import { join } from "node:path";
 
 export default async function migrations(request, response) {
+  if (!["GET", "POST"].includes(request.method)) {
+    return response.status(405).json({ message: "Method not allowed" });
+  }
+
   const dbClient = await database.getNewConnectedClient();
   const defaultMigrationOptions = {
     dbClient: dbClient,
@@ -32,7 +36,5 @@ export default async function migrations(request, response) {
     }
 
     return response.status(201).json(migratedMigrations);
-  } else {
-    return response.status(405).json({ message: "Method not allowed" });
   }
 }
